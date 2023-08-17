@@ -7,12 +7,12 @@ y = [0, 1, 2.548, -2.361]
 
 dimensions = 4
 
-powers = np.zeros((dimensions, dimensions), dtype=float)
+powers = np.zeros((dimensions, dimensions), dtype=np.float64)
 for i in range(dimensions-1, -1, -1):
     for j in range(0, dimensions):
         powers[dimensions-1-j][i] = dimensions-1-i+j
 
-a = np.zeros((dimensions, dimensions), dtype=float)
+a = np.zeros((dimensions, dimensions), dtype=np.float64)
 for i in range(dimensions):
     for j in range(dimensions):
         total = 0
