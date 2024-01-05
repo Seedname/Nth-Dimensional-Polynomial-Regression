@@ -1,27 +1,30 @@
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 eps = np.finfo(float).eps
 
-def nth_derivative(f, x, n):
-    total = 0
-    # h = eps * math.sqrt(abs(x) + math.sqrt(eps))
-    h = 0.01
-
+def nthDerivative(f, n, x):
+    sum = 0
+    dx = 0.0001
     for k in range(n+1):
-        total += pow(-1, k)*(math.factorial(n)/(math.factorial(k)*math.factorial(n-k)))*((f(x+h*(n-k)))/pow(h, n))
-
-    return total
+        sum += pow(-1, k)*(math.factorial(n)/(math.factorial(k)*math.factorial(n-k)))*((f(x+dx*(n-k)))/pow(dx, n))
+    return sum
 
 def taylor(f, a, x, u):
-    total = 0
+    sum = 0
     for n in range(u+1):
-        total += pow(x-a, n) * nth_derivative(f, a, n) / math.factorial(n)
-    return total
+        sum += pow(x-a, n) * nthDerivative(f, n, a) / math.factorial(n)
+    return sum
 
 def f(x):
-    return x ** 2   
+    return x ** 2
 
-# 1/2 * x ^ -1/2
-# print(1/2 * 5 ** -1/2)
-print(taylor(f, 10, 5, 10))
+def g(x):
+    return taylor(f,1,x,6)
+
+x = list(range(0,100))
+y = list(map(g, x))
+
+plt.plot(x, y)
+plt.show()

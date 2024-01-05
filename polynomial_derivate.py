@@ -38,9 +38,29 @@ def derivative(f, degree, precision):
 
     coefficients = list(np.ndarray.flatten(np.asarray(X)))
 
-    return ' + '.join([f"{str('%.4f' % round(coefficients[i], 4)).rstrip('0')}*x^{len(coefficients)-i-1}" for i in range(len(coefficients)) if round(coefficients[i], 3) != 0])
+    output_string = ' + '.join([f"{str('%.4f' % round(coefficients[i], 4)).rstrip('0')}*x**{len(coefficients)-i-1}" 
+                                for i in range(len(coefficients)) 
+                                if round(coefficients[i], 3) != 0])
+
+    return output_string
+
+def string_to_func(string, x):
+    new_str = eval(string.replace('x', str(x)))
+    return new_str
 
 def f(x):
-    return x**2 * (x**3 + 7 + x**2 + 8*x) + 3.05*x
+    return 5 * x** 3
 
-print(derivative(f, 5, 20))
+current_string = derivative(f, 2, 20)
+def g(x):
+    return string_to_func(current_string, x)
+
+
+starting_degree = 3
+for i in range(starting_degree, 0, -1):
+    current_string = derivative(f, i, 20)
+    f = g
+    print(current_string)
+
+
+

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 x = [-0.452, 0, 0.322, -0.931]
 y = [0, 1, 2.548, -2.361]
 
-dimensions = 4
+dimensions = 2
 
 powers = np.zeros((dimensions, dimensions), dtype=np.float64)
 for i in range(dimensions-1, -1, -1):
