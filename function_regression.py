@@ -1,30 +1,37 @@
+#
+
+
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-eps = np.finfo(float).eps
-
-def nthDerivative(f, n, x):
-    sum = 0
-    dx = 0.0001
-    for k in range(n+1):
-        sum += pow(-1, k)*(math.factorial(n)/(math.factorial(k)*math.factorial(n-k)))*((f(x+dx*(n-k)))/pow(dx, n))
-    return sum
-
 def taylor(f, a, x, u):
     sum = 0
     for n in range(u+1):
-        sum += pow(x-a, n) * nthDerivative(f, n, a) / math.factorial(n)
+        sum += (x-a)**n * f(a, n) / math.factorial(n)
     return sum
 
-def f(x):
-    return x ** 2
+def f(x, n=0):
+    if n == 0:
+        return x**2
+    elif n == 1:
+        return 2*x
+    elif n == 2:
+        return 2
+    else:
+        return 0
 
 def g(x):
-    return taylor(f,1,x,6)
+    return taylor(f, 1, x, 2)
 
-x = list(range(0,100))
-y = list(map(g, x))
+x = np.linspace(0, 100, 100)  # Changed range to 0-2
+y_taylor = [g(xi) for xi in x]
+y_actual = [f(xi) for xi in x]
 
-plt.plot(x, y)
+plt.plot(x, y_taylor, label='Taylor approximation')
+plt.plot(x, y_actual, label='Actual function')
+plt.legend()
+plt.title('Taylor approximation of f(x) = x^2 around x=1')
+plt.xlabel('x')
+plt.ylabel('y')
 plt.show()

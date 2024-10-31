@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-x = [-0.452, 0, 0.322, -0.931]
-y = [0, 1, 2.548, -2.361]
+x = [0, 1, 2, 3, 4]
+y = [3, 0.52340391688, 21.6441594383, 449.394010891, 9041.1551017]
 
-dimensions = 2
+dimensions = 5
 
 powers = np.zeros((dimensions, dimensions), dtype=np.float64)
 for i in range(dimensions-1, -1, -1):
